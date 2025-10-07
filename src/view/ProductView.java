@@ -54,6 +54,9 @@ public class ProductView extends JDialog implements ActionListener{
 		
 		// main configuration dialog
 		switch (option) {
+		case Constants.OPTION_WRITE_INVENTORY:
+			setTitle("Exportar Inventario");			
+			break;
 		case Constants.OPTION_ADD_PRODUCT:
 			setTitle("Añadir Producto");			
 			break;
@@ -207,6 +210,8 @@ public class ProductView extends JDialog implements ActionListener{
 				}
 				
 				break;
+				
+			
 
 			default:
 				break;

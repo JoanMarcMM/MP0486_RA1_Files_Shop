@@ -10,6 +10,7 @@ import main.Shop;
 import utils.Constants;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
@@ -26,6 +27,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	private Shop shop;
 	
 	private JPanel contentPane;
+	private JButton btnWriteInventory;
 	private JButton btnShowCash;
 	private JButton btnAddProduct;
 	private JButton btnAddStock;
@@ -85,11 +87,21 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		lblShowCash.setBounds(57, 20, 236, 14);
 		contentPane.add(lblShowCash);
 		
+		//Created new button to export inventory
+		// option write inventory
+		btnWriteInventory = new JButton("0. Exportar inventario");
+		btnWriteInventory.setHorizontalAlignment(SwingConstants.LEFT);
+		btnWriteInventory.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnWriteInventory.setBounds(99, 40, 236, 40);
+		contentPane.add(btnWriteInventory);
+		// listen button
+		btnWriteInventory.addActionListener(this);
+		
 		// option count cash
 		btnShowCash = new JButton("1. Contar caja");
 		btnShowCash.setHorizontalAlignment(SwingConstants.LEFT);
 		btnShowCash.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnShowCash.setBounds(99, 40, 236, 40);
+		btnShowCash.setBounds(99, 90, 236, 40);
 		contentPane.add(btnShowCash);
 		// listen button
 		btnShowCash.addActionListener(this);
@@ -98,7 +110,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		btnAddProduct = new JButton("2. Añadir producto");
 		btnAddProduct.setHorizontalAlignment(SwingConstants.LEFT);
 		btnAddProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnAddProduct.setBounds(99, 90, 236, 40);
+		btnAddProduct.setBounds(99, 140, 236, 40);
 		contentPane.add(btnAddProduct);
 		// listen button
 		btnAddProduct.addActionListener(this);
@@ -107,7 +119,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		btnAddStock = new JButton("3. Añadir stock");
 		btnAddStock.setHorizontalAlignment(SwingConstants.LEFT);
 		btnAddStock.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnAddStock.setBounds(99, 140, 236, 40);
+		btnAddStock.setBounds(99, 190, 236, 40);
 		contentPane.add(btnAddStock);
 		// listen button
 		btnAddStock.addActionListener(this);
@@ -116,7 +128,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		btnRemoveProduct = new JButton("9. Eliminar producto");
 		btnRemoveProduct.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRemoveProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnRemoveProduct.setBounds(99, 190, 236, 40);
+		btnRemoveProduct.setBounds(99, 230, 236, 40);
 		contentPane.add(btnRemoveProduct);
 		// listen button
 		btnRemoveProduct.addActionListener(this);
@@ -135,6 +147,11 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		if (e.getKeyChar() == '1' ) {
 			this.openCashView();	
         }
+		//added if to listen if char 0 is pressed
+		if (e.getKeyChar() == '0') {
+			System.out.print("Dentro 1");
+			writeInventoryDAO();	
+		}
 		if (e.getKeyChar() == '2') {
 			this.openProductView(Constants.OPTION_ADD_PRODUCT);	
 		}
@@ -158,6 +175,10 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		// TODO Auto-generated method stub
 		if (e.getSource() == btnShowCash) {
 			this.openCashView();						
+		}
+		//added if to listen to the export inventory button
+		if (e.getSource() == btnWriteInventory) {
+			writeInventoryDAO();							
 		}
 		if (e.getSource() == btnAddProduct) {
 			this.openProductView(Constants.OPTION_ADD_PRODUCT);						
@@ -196,6 +217,29 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
         dialog.setModal(true);
         dialog.setVisible(true);
 	}
+	
+	//Method write inventory, makes shop export inventory, if true positive message, if false error
+	public void writeInventoryDAO() {
+		
+		boolean validation = false;
+		
+		validation=shop.writeInventory();
+		
+		
+		
+		if (validation) {
+			JOptionPane.showMessageDialog(this, "Inventorio exportado ", "Information",
+					JOptionPane.INFORMATION_MESSAGE);
+			
+			
+		} else {
+			JOptionPane.showMessageDialog(this, "Error al crear informe.", "Error",
+					JOptionPane.ERROR_MESSAGE);
+				
+		}
+	}
+	
+	
 	
 	
 }
