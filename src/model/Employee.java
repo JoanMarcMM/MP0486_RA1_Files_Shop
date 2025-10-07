@@ -60,15 +60,20 @@ public class Employee extends Person implements Logable{
 	 */
 	@Override
 	public boolean login(int user, String password) {
-//		if (USER == user && PASSWORD.equals(password)) {
-//			return true;
-//		} 
+		
+	
 		boolean success = false;
 		
 		// connect to data
-		dao.connect();
+		//dao.connect();
 		
 		// get employee data
+		/*
+		if(dao.getEmployee(user, password) != null) {
+			success =  true;
+		}*/
+		
+		DaoImplJDBC dao = new DaoImplJDBC();
 		if(dao.getEmployee(user, password) != null) {
 			success =  true;
 		}
@@ -76,6 +81,6 @@ public class Employee extends Person implements Logable{
 		// disconnect data
 		dao.disconnect();
 		return success;
-	}
+}
 
 }

@@ -228,12 +228,12 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		
 		
 		if (validation) {
-			JOptionPane.showMessageDialog(this, "Inventorio exportado ", "Information",
+			JOptionPane.showMessageDialog(this, "Inventorio exportado correctamente.", "Information",
 					JOptionPane.INFORMATION_MESSAGE);
 			
 			
 		} else {
-			JOptionPane.showMessageDialog(this, "Error al crear informe.", "Error",
+			JOptionPane.showMessageDialog(this, "Error exportando el inventario.", "Error",
 					JOptionPane.ERROR_MESSAGE);
 				
 		}

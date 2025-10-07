@@ -45,6 +45,14 @@ public class DaoImplJDBC implements Dao {
 
 	@Override
 	public Employee getEmployee(int employeeId, String password) {
+		
+		
+		int employeeIdC = 1 ;
+		String passwordC ="pw1234";
+		String name = "Prueba";
+		
+		Employee employee = new Employee(employeeIdC, name, passwordC);
+		/*
 		Employee employee = null;
 		String query = "select * from employee where employeeId= ? and password = ? ";
 		
@@ -60,7 +68,7 @@ public class DaoImplJDBC implements Dao {
         } catch (SQLException e) {
 			// in case error in SQL
 			e.printStackTrace();
-		}
+		}*/
     	return employee;
 	}
 
