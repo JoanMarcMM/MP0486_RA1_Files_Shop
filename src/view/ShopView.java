@@ -32,6 +32,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	private JButton btnAddProduct;
 	private JButton btnAddStock;
 	private JButton btnRemoveProduct;
+	private JButton btnViewInventory;
 	
 	
 	
@@ -123,12 +124,21 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		contentPane.add(btnAddStock);
 		// listen button
 		btnAddStock.addActionListener(this);
+		
+		// option add product
+		btnViewInventory = new JButton("4. Ver inventario");
+		btnViewInventory.setHorizontalAlignment(SwingConstants.LEFT);
+		btnViewInventory.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnViewInventory.setBounds(99, 240, 236, 40);
+		contentPane.add(btnViewInventory);
+		// listen button
+		btnViewInventory.addActionListener(this);
 
 		// option add product
 		btnRemoveProduct = new JButton("9. Eliminar producto");
 		btnRemoveProduct.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRemoveProduct.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnRemoveProduct.setBounds(99, 230, 236, 40);
+		btnRemoveProduct.setBounds(99, 290, 236, 40);
 		contentPane.add(btnRemoveProduct);
 		// listen button
 		btnRemoveProduct.addActionListener(this);
@@ -158,6 +168,9 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		if (e.getKeyChar() == '3') {
 			this.openProductView(Constants.OPTION_ADD_STOCK);
 		}
+		if (e.getKeyChar() == '4') {
+			this.openInventoryView();
+		}
 		if (e.getKeyChar() == '9') {
 			this.openProductView(Constants.OPTION_REMOVE_PRODUCT);
 		}
@@ -185,6 +198,9 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 		}
 		if (e.getSource() == btnAddStock) {
 			this.openProductView(Constants.OPTION_ADD_STOCK);				
+		}
+		if (e.getSource() == btnViewInventory) {
+			this.openInventoryView();				
 		}
 		if (e.getSource() == btnRemoveProduct) {
 			this.openProductView(Constants.OPTION_REMOVE_PRODUCT);				
@@ -237,6 +253,15 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 					JOptionPane.ERROR_MESSAGE);
 				
 		}
+	}
+	
+	public void openInventoryView() {
+		InventoryView dialog = new InventoryView(this.shop);  
+        
+        dialog.setSize(400, 400);
+        
+        dialog.setModal(true);
+        dialog.setVisible(true);
 	}
 	
 	
