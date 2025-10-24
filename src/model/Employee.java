@@ -72,7 +72,7 @@ public class Employee extends Person implements Logable{
 		if(dao.getEmployee(user, password) != null) {
 			success =  true;
 		}*/
-		
+		/*
 		DaoImplJDBC dao = new DaoImplJDBC();
 		if(dao.getEmployee(user, password) != null) {
 			success =  true;
@@ -80,6 +80,13 @@ public class Employee extends Person implements Logable{
 		
 		// disconnect data
 		dao.disconnect();
+		*/
+		
+		if(user==1&password.equals("pw1234")) {
+			success=true;
+		}else {
+			success=false;
+		}
 		return success;
 }
 

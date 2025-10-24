@@ -236,7 +236,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	
 	//Method write inventory, makes shop export inventory, if true positive message, if false error
 	public void writeInventoryDAO() {
-		
+		shop.loadInventory();
 		boolean validation = false;
 		
 		validation=shop.writeInventory();
@@ -256,6 +256,7 @@ public class ShopView extends JFrame implements ActionListener, KeyListener{
 	}
 	
 	public void openInventoryView() {
+		shop.loadInventory();
 		InventoryView dialog = new InventoryView(this.shop);  
         
         dialog.setSize(400, 400);
