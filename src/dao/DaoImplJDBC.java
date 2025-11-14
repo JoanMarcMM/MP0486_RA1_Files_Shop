@@ -1,5 +1,6 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import model.Amount;
 import model.Employee;
 import model.Product;
 
@@ -46,13 +48,7 @@ public class DaoImplJDBC implements Dao {
 	@Override
 	public Employee getEmployee(int employeeId, String password) {
 		
-		
-		int employeeIdC = 1 ;
-		String passwordC ="pw1234";
-		String name = "Prueba";
-		
-		Employee employee = new Employee(employeeIdC, name, passwordC);
-		/*
+		connect();
 		Employee employee = null;
 		String query = "select * from employee where employeeId= ? and password = ? ";
 		
@@ -68,20 +64,107 @@ public class DaoImplJDBC implements Dao {
         } catch (SQLException e) {
 			// in case error in SQL
 			e.printStackTrace();
-		}*/
+		}
     	return employee;
 	}
 
 	@Override
 	public ArrayList<Product> getInventory() {
-		// TODO Auto-generated method stub
-		return null;
+		connect();
+		ArrayList<Product> inventory = new ArrayList<Product>();
+		String query = "SELECT * FROM inventory";
+		
+		
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				Double amountBD = rs.getDouble("wholesalerPrice");
+				Amount amount = new Amount (amountBD);
+				Product producto = new Product(rs.getInt("id"),rs.getString("name"), amount, rs.getBoolean("available"), rs.getInt("stock"));
+				inventory.add(producto);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		
+		return inventory;
 	}
 
 	@Override
 	public boolean writeInventory(ArrayList<Product> inventory) {
-		// TODO Auto-generated method stub
-		return false;
+		connect();
+		try {
+			for(Product product : inventory) {
+				String query="INSERT INTO historical_inventory (id_product, name, wholesalerPrice, available, stock) VALUES ("+product.getId()+", '"+product.getName()+"', '"+product.getWholesalerPrice().getValue()+"', "+product.isAvailable()+", "+product.getStock()+")";
+				Statement stmt = connection.createStatement();
+				stmt.executeUpdate(query);
+			}
+					
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+		return true;
+	}
+	
+	public boolean addProduct(Product product) {
+		connect();
+		try {
+			int bool;
+			if(product.isAvailable()==true) {
+				bool=1;
+			}else {
+				bool=0;
+			}
+				String query="INSERT INTO inventory (name, wholesalerPrice, available, stock) VALUES ('"+product.getName()+"', '"+product.getWholesalerPrice().getValue()+"', "+bool+", "+product.getStock()+")";
+				Statement stmt = connection.createStatement();
+				stmt.executeUpdate(query);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public boolean updateProduct(Product product) {
+		connect();
+		try {
+				String query="UPDATE inventory SET stock="+product.getStock()+" WHERE id="+product.getId()+" ";
+				Statement stmt = connection.createStatement();
+				stmt.executeUpdate(query);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean deleteProduct(int id){
+		connect();
+		try {
+				String query="DELETE FROM inventory WHERE id="+id+" ";
+				Statement stmt = connection.createStatement();
+				stmt.executeUpdate(query);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 }

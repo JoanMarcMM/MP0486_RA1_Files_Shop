@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import dao.DaoImplFile;
+import dao.DaoImplJDBC;
 
 public class Shop {
 	private Amount cash = new Amount(100.00);
@@ -27,7 +28,7 @@ public class Shop {
 //	private Sale[] sales;
 	private ArrayList<Sale> sales;
 	private int numberSales;
-	private DaoImplFile dao = new DaoImplFile();
+	private DaoImplJDBC dao = new DaoImplJDBC();
 
 	final static double TAX_RATE = 1.04;
 
@@ -219,6 +220,13 @@ public class Shop {
 		
 		this.inventory= dao.getInventory();
 		
+		numberProducts = 0;
+	    for (int i = 0; i < inventory.size(); i++) {
+	        Product p = inventory.get(i);
+	        p.setId(i + 1);     // id = 1,2,3...
+	        numberProducts++;   // mantenemos el contador de productos
+	    }
+		
 		/* Old filereader logic
 		 * // locate file, path and name
 		File f = new File(System.getProperty("user.dir") + File.separator + "files/inputInventory.txt");
@@ -315,6 +323,10 @@ public class Shop {
 	 * remove a new product to inventory getting data from console
 	 */
 	public void removeProduct() {
+		
+		
+		
+		/*
 		if (inventory.size() == 0) {
 			System.out.println("No se pueden eliminar productos, inventario vacio");
 			return;
@@ -335,6 +347,7 @@ public class Shop {
 		} else {
 			System.out.println("No se ha encontrado el producto con nombre " + name);
 		}
+		*/
 	}
 
 	/**
@@ -544,13 +557,52 @@ public class Shop {
 	 * 
 	 * @param product
 	 */
-	public void addProduct(Product product) {
+	public int addProduct(Product product) {
 		if (isInventoryFull()) {
 			System.out.println("No se pueden añadir más productos, se ha alcanzado el máximo de " + inventory.size());
-			return;
+			return 1;
 		}
-		inventory.add(product);
-		numberProducts++;
+		if(dao.addProduct(product)) {
+			inventory.add(product);
+			numberProducts++;
+			return 0;
+		}else {
+			return 2;
+		}
+		
+		
+	}
+	
+	public int updateProduct(Product product) {
+		
+		int returnInt=2;
+		
+		if(dao.updateProduct(product)) {
+			for(Product product2 : inventory) {
+				if(product2.getId()==product.getId()) {
+					product2.setStock(product.getStock());
+					returnInt= 0;
+				}
+			}
+		}else {
+			returnInt= 2;
+		}
+		
+		return returnInt;
+	}
+	
+	public int removeProduct(Product product) {
+		
+		int returnInt=2;
+		
+		if(dao.deleteProduct(product.getId())) {
+			returnInt= 0;
+			
+		}else{
+			returnInt= 2;
+		}
+		
+		return returnInt;
 	}
 	
 	

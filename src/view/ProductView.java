@@ -163,11 +163,19 @@ public class ProductView extends JDialog implements ActionListener{
 							new Amount(Double.parseDouble(textFieldPrice.getText())) ,
 							true,
 							Integer.parseInt(textFieldStock.getText()));
-					shop.addProduct(product);
+					int validacion = shop.addProduct(product);
+					if( validacion==0) {
 					JOptionPane.showMessageDialog(null, "Producto añadido ", "Information",
 							JOptionPane.INFORMATION_MESSAGE);
 					// release current screen
-					dispose();	
+					dispose();
+					}else if(validacion==1){
+						JOptionPane.showMessageDialog(null, "Inventario lleno ", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}else if(validacion==2){
+						JOptionPane.showMessageDialog(null, "Error SQL ", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				
 				break;
@@ -180,12 +188,19 @@ public class ProductView extends JDialog implements ActionListener{
 					JOptionPane.showMessageDialog(null, "Producto no existe ", "Error",
 							JOptionPane.ERROR_MESSAGE);
 					
-				} else {					
+				} else {
+					
 					product.setStock(product.getStock() + Integer.parseInt(textFieldStock.getText()));
+					if(shop.updateProduct(product)==0) {
 					JOptionPane.showMessageDialog(null, "Stock actualizado ", "Information",
 							JOptionPane.INFORMATION_MESSAGE);
+					}else {
+						JOptionPane.showMessageDialog(null, "Error SQL ", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
 					// release current screen
 					dispose();	
+					
 				}
 				
 				break;
@@ -198,10 +213,15 @@ public class ProductView extends JDialog implements ActionListener{
 					JOptionPane.showMessageDialog(null, "Producto no existe ", "Error",
 							JOptionPane.ERROR_MESSAGE);
 					
-				} else {					
+				} else {	
+					if(shop.removeProduct(product)==0) {
 					shop.getInventory().remove(product);
 					JOptionPane.showMessageDialog(null, "Producto eliminado", "Information",
 							JOptionPane.INFORMATION_MESSAGE);
+					}else {
+						JOptionPane.showMessageDialog(null, "Error SQL ", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
 					// release current screen
 					dispose();	
 				}
