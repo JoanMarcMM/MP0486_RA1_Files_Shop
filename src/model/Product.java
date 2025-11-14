@@ -7,20 +7,22 @@ public class Product {
     private Amount wholesalerPrice;
     private boolean available;
     private int stock;
-    private static int totalProducts=1;
+    
     
     public final static double EXPIRATION_RATE=0.60;
     
 	public Product(String name, Amount wholesalerPrice, boolean available, int stock) {
 		super();
-		
 		this.name = name;
 		this.wholesalerPrice = wholesalerPrice;
 		this.publicPrice = new Amount(wholesalerPrice.getValue() * 2);
 		this.available = available;
 		this.stock = stock;
-		totalProducts++;
+	
 	}
+	
+	
+	
 	public Product(int id,String name, Amount wholesalerPrice, boolean available, int stock) {
 		super();
 		this.id=id;
@@ -29,7 +31,7 @@ public class Product {
 		this.publicPrice = new Amount(wholesalerPrice.getValue() * 2);
 		this.available = available;
 		this.stock = stock;
-		totalProducts++;
+
 	}
 
 	public int getId() {
@@ -82,13 +84,7 @@ public class Product {
 		this.stock = stock;
 	}
 
-	public static int getTotalProducts() {
-		return totalProducts;
-	}
-
-	public static void setTotalProducts(int totalProducts) {
-		Product.totalProducts = totalProducts;
-	}
+	
 	
 	public void expire() {
 		this.publicPrice.setValue(this.getPublicPrice().getValue()*EXPIRATION_RATE); ;
