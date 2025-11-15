@@ -187,6 +187,12 @@ public boolean addProduct(Product product) {
 		
 		return true;
 	}
+
+	@Override
+	public int beginTotalProduct(Dao dao) {
+		
+		return 1;
+	}
 	
 	
 	

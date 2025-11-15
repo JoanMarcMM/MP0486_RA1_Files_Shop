@@ -194,6 +194,12 @@ public boolean addProduct(Product product) {
 		
 		return true;
 	}
+
+	@Override
+	public int beginTotalProduct(Dao dao) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 
 }

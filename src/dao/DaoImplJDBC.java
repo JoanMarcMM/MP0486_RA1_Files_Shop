@@ -15,7 +15,13 @@ import model.Product;
 
 public class DaoImplJDBC implements Dao {
 	Connection connection;
-
+	
+	@Override
+	public int beginTotalProduct(Dao dao) {
+		int num=getTotalProducts();
+		return num;
+	}
+	
 	@Override
 	public void connect() {
 		// Define connection parameters
@@ -30,6 +36,7 @@ public class DaoImplJDBC implements Dao {
 		}
 
 	}
+	
 
 	@Override
 	public void disconnect() {
@@ -43,6 +50,28 @@ public class DaoImplJDBC implements Dao {
 			}
 		}
 		
+	}
+	
+	public int getTotalProducts() {
+		connect();
+		String query = "SELECT AUTO_INCREMENT\r\n"
+				+ "FROM INFORMATION_SCHEMA.TABLES\r\n"
+				+ "WHERE TABLE_SCHEMA = 'shop'\r\n"
+				+ "  AND TABLE_NAME = 'inventory'";
+		long num=0;
+		
+		try (PreparedStatement ps = connection.prepareStatement(query);
+			     ResultSet rs = ps.executeQuery()) {
+
+			    if (rs.next()) {
+			        num= rs.getLong("AUTO_INCREMENT");
+			        
+			    }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return (int)num;
 	}
 
 	@Override

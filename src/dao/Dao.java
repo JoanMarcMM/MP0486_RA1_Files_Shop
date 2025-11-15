@@ -22,4 +22,6 @@ public interface Dao {
 	public boolean deleteProduct(int id);
 	
 	public Employee getEmployee(int employeeId, String password);
+	
+	public int beginTotalProduct (Dao dao);
 }

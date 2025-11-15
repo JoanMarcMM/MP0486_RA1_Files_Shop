@@ -29,12 +29,15 @@ public class Shop {
 	private ArrayList<Sale> sales;
 	private int numberSales;
 	private DaoImplJDBC dao = new DaoImplJDBC();
+	Product p;
+	
 
 	final static double TAX_RATE = 1.04;
 
 	public Shop() {
 		inventory = new ArrayList<Product>();
 		sales = new ArrayList<Sale>();
+		p.setTotalProducts(dao.beginTotalProduct(dao));
 	}
 	
 	
