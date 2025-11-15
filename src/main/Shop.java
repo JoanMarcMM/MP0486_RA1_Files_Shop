@@ -222,13 +222,13 @@ public class Shop {
 	private void readInventory() {
 		
 		this.inventory= dao.getInventory();
-		
+		/*
 		numberProducts = 0;
 	    for (int i = 0; i < inventory.size(); i++) {
 	        Product p = inventory.get(i);
 	        p.setId(i + 1);     // id = 1,2,3...
 	        numberProducts++;   // mantenemos el contador de productos
-	    }
+	    }*/
 		
 		/* Old filereader logic
 		 * // locate file, path and name

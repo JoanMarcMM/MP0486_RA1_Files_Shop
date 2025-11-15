@@ -154,7 +154,7 @@ public class DaoImplJDBC implements Dao {
 			}else {
 				bool=0;
 			}
-				String query="INSERT INTO inventory (id,name, wholesalerPrice, available, stock) VALUES ("+product.getId()+",'"+product.getName()+"', '"+product.getWholesalerPrice().getValue()+"', "+bool+", "+product.getStock()+")";
+				String query="INSERT INTO inventory (name, wholesalerPrice, available, stock) VALUES ('"+product.getName()+"', '"+product.getWholesalerPrice().getValue()+"', "+bool+", "+product.getStock()+")";
 				Statement stmt = connection.createStatement();
 				stmt.executeUpdate(query);
 
