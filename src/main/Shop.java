@@ -19,6 +19,7 @@ import java.util.Scanner;
 
 import dao.DaoImplFile;
 import dao.DaoImplJDBC;
+import dao.DaoImplHibernate;
 
 public class Shop {
 	private Amount cash = new Amount(100.00);
@@ -28,7 +29,7 @@ public class Shop {
 //	private Sale[] sales;
 	private ArrayList<Sale> sales;
 	private int numberSales;
-	private DaoImplJDBC dao = new DaoImplJDBC();
+	private DaoImplHibernate dao = new DaoImplHibernate();
 	Product p;
 	
 

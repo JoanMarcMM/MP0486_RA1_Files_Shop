@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -31,6 +32,7 @@ public class ProductView extends JDialog implements ActionListener{
 	private JTextField textFieldStock;
 	private JTextField textFieldPrice;
 	private final JPanel contentPanel = new JPanel();
+	
 
 	/**
 	 * Launch the application.
@@ -151,6 +153,7 @@ public class ProductView extends JDialog implements ActionListener{
 			Product product;
 			switch (this.option) {
 			case Constants.OPTION_ADD_PRODUCT:
+				
 				// check product does not exist
 				product = shop.findProduct(textFieldName.getText());
 				

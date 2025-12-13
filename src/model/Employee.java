@@ -1,13 +1,27 @@
 package model;
 
 import main.Logable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import dao.*;
 
+@Entity
+@Table(name="employee")
 public class Employee extends Person implements Logable{
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int employeeId;
+
+    @Column(nullable = false)
 	private String password;
-	// connection using JDBC SQL
-	private Dao dao = new DaoImplJDBC();
+    
 	
 //	public static final int USER = 123;
 //	public static final String PASSWORD = "test";
