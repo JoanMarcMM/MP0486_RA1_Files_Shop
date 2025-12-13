@@ -176,7 +176,7 @@ public class ProductView extends JDialog implements ActionListener{
 						JOptionPane.showMessageDialog(null, "Inventario lleno ", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}else if(validacion==2){
-						JOptionPane.showMessageDialog(null, "Error SQL ", "Error",
+						JOptionPane.showMessageDialog(null, "Error ", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
 				}
@@ -198,7 +198,7 @@ public class ProductView extends JDialog implements ActionListener{
 					JOptionPane.showMessageDialog(null, "Stock actualizado ", "Information",
 							JOptionPane.INFORMATION_MESSAGE);
 					}else {
-						JOptionPane.showMessageDialog(null, "Error SQL ", "Error",
+						JOptionPane.showMessageDialog(null, "Error", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
 					// release current screen
@@ -222,7 +222,7 @@ public class ProductView extends JDialog implements ActionListener{
 					JOptionPane.showMessageDialog(null, "Producto eliminado", "Information",
 							JOptionPane.INFORMATION_MESSAGE);
 					}else {
-						JOptionPane.showMessageDialog(null, "Error SQL ", "Error",
+						JOptionPane.showMessageDialog(null, "Error", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
 					// release current screen

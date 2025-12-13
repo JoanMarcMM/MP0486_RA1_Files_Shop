@@ -178,6 +178,7 @@ private Transaction tx;
 			if (tx != null)
 				tx.rollback(); 
 			e.printStackTrace();
+			return false;
 		}
 		return true;
 	}
@@ -193,6 +194,7 @@ private Transaction tx;
 			if (tx != null)
 				tx.rollback(); 
 			e.printStackTrace();
+			return false;
 		}
 		return true;
 	}
