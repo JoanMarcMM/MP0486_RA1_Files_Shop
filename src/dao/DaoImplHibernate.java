@@ -151,7 +151,8 @@ private Transaction tx;
 			
 					
 		} catch (HibernateException e) {
-			// TODO Auto-generated catch block
+			if (tx != null)
+				tx.rollback(); 
 			e.printStackTrace();
 			return false;
 		}
@@ -160,7 +161,7 @@ private Transaction tx;
 		return true;
 	}
 	
-	public boolean addProduct(Product product) {
+	public void addProduct(Product product) {
 		
 		try {
 			int bool;
@@ -178,12 +179,12 @@ private Transaction tx;
 			if (tx != null)
 				tx.rollback(); 
 			e.printStackTrace();
-			return false;
+			
 		}
-		return true;
+		
 	}
 
-	public boolean updateProduct(Product product) {
+	public void updateProduct(Product product) {
 		try {
 			
 				tx = session.beginTransaction();
@@ -194,12 +195,12 @@ private Transaction tx;
 			if (tx != null)
 				tx.rollback(); 
 			e.printStackTrace();
-			return false;
+			
 		}
-		return true;
+		
 	}
 	
-	public boolean deleteProduct(int id){
+	public void deleteProduct(int id){
 		
 		try {
 			tx = session.beginTransaction();
@@ -211,11 +212,12 @@ private Transaction tx;
 	        tx.commit();
 
 		} catch (HibernateException e) {
-			// TODO Auto-generated catch block
+			if (tx != null)
+				tx.rollback(); 
 			e.printStackTrace();
-			return false;
+			
 		}
-		return true;
+		
 	}
 
 

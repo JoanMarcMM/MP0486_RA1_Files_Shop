@@ -145,9 +145,9 @@ public class DaoImplJDBC implements Dao {
 		return true;
 	}
 	
-	public boolean addProduct(Product product) {
+	public void addProduct(Product product) throws SQLException {
 		connect();
-		try {
+	
 			int bool;
 			if(product.isAvailable()==true) {
 				bool=1;
@@ -158,42 +158,28 @@ public class DaoImplJDBC implements Dao {
 				Statement stmt = connection.createStatement();
 				stmt.executeUpdate(query);
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+		
+		
 	}
 
-	public boolean updateProduct(Product product) {
+	public void updateProduct(Product product) throws SQLException {
 		connect();
-		try {
+		
 				String query="UPDATE inventory SET stock="+product.getStock()+" WHERE id="+product.getId()+" ";
 				Statement stmt = connection.createStatement();
 				stmt.executeUpdate(query);
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+		
 	}
 	
-	public boolean deleteProduct(int id){
+	public void deleteProduct(int id) throws SQLException{
 		connect();
-		try {
+		
 				String query="DELETE FROM inventory WHERE id="+id+" ";
 				Statement stmt = connection.createStatement();
 				stmt.executeUpdate(query);
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+		
 	}
 
 }

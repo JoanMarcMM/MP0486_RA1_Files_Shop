@@ -13,11 +13,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.hibernate.HibernateException;
+
 import dao.Dao;
+import dao.DaoImplFile;
 import dao.DaoImplFile;
 import dao.DaoImplJDBC;
 import dao.DaoImplHibernate;
@@ -567,11 +571,12 @@ public class Shop {
 			System.out.println("No se pueden añadir más productos, se ha alcanzado el máximo de " + inventory.size());
 			return 1;
 		}
-		if(dao.addProduct(product)) {
+		try{
+			dao.addProduct(product);
 			inventory.add(product);
 			numberProducts++;
 			return 0;
-		}else {
+		}catch(SQLException E) {
 			return 2;
 		}
 		
@@ -581,15 +586,15 @@ public class Shop {
 	public int updateProduct(Product product) {
 		
 		int returnInt=2;
-		
-		if(dao.updateProduct(product)) {
+		try {
+			dao.updateProduct(product);
 			for(Product product2 : inventory) {
 				if(product2.getId()==product.getId()) {
 					product2.setStock(product.getStock());
 					returnInt= 0;
 				}
 			}
-		}else {
+		}catch(SQLException E) {
 			returnInt= 2;
 		}
 		
@@ -599,13 +604,13 @@ public class Shop {
 	public int removeProduct(Product product) {
 		
 		int returnInt=2;
-		
-		if(dao.deleteProduct(product.getId())) {
+		try {
+			dao.deleteProduct(product.getId());
 			returnInt= 0;
-			
-		}else{
+		}catch(SQLException E) {
 			returnInt= 2;
 		}
+		
 		
 		return returnInt;
 	}

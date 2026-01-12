@@ -180,19 +180,19 @@ public class DaoImplXML implements Dao{
 			
 		}
 	
-public boolean addProduct(Product product) {
+public void addProduct(Product product) {
 		
-		return true;
+		
 	}
 
-	public boolean updateProduct(Product product) {
+	public void updateProduct(Product product) {
 		
-		return true;
+		
 	}
 	
-	public boolean deleteProduct(int id){
+	public void deleteProduct(int id){
 		
-		return true;
+		
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.Employee;
@@ -15,11 +16,11 @@ public interface Dao {
 	
 	public boolean writeInventory(ArrayList<Product> inventory);
 
-	public boolean addProduct(Product product);
+	public void addProduct(Product product) throws SQLException;
 	
-	public boolean updateProduct(Product product);
+	public void updateProduct(Product product) throws SQLException;
 	
-	public boolean deleteProduct(int id);
+	public void deleteProduct(int id)throws SQLException ;
 	
 	public Employee getEmployee(int employeeId, String password);
 	
