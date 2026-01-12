@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import dao.Dao;
 import dao.DaoImplFile;
 import dao.DaoImplJDBC;
 import dao.DaoImplHibernate;
@@ -29,7 +30,7 @@ public class Shop {
 //	private Sale[] sales;
 	private ArrayList<Sale> sales;
 	private int numberSales;
-	private DaoImplHibernate dao = new DaoImplHibernate();
+	private Dao dao = new DaoImplHibernate();
 	Product p;
 	
 
