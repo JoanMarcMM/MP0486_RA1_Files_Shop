@@ -18,7 +18,8 @@ public class Employee extends Person implements Logable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int employeeId;
-
+	Dao dao = new  DaoImplMongoDB();
+	
     @Column(nullable = false)
 	private String password;
     
@@ -78,25 +79,8 @@ public class Employee extends Person implements Logable{
 	
 		boolean success = false;
 		
-		// connect to data
-		//dao.connect();
 		
-		// get employee data
-		/*
-		if(dao.getEmployee(user, password) != null) {
-			success =  true;
-		}*/
-		/*
-		DaoImplJDBC dao = new DaoImplJDBC();
-		if(dao.getEmployee(user, password) != null) {
-			success =  true;
-		}
-		
-		// disconnect data
-		dao.disconnect();
-		*/
-		
-		if(user==1&password.equals("pw1234")) {
+		if(dao.getEmployee(user, password)!=null) {
 			success=true;
 		}else {
 			success=false;
