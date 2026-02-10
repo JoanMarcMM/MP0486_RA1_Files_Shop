@@ -116,8 +116,8 @@ private Transaction tx;
 			List<Product> inventoryList =q.list();
 			
 			for(Product p : inventoryList) {
-				Amount publicPrice = new Amount (p.getPrice());
-				Amount wholesalerPrice = new Amount (p.getPrice()*2);
+				Amount publicPrice = new Amount (p.getPrice()*2);
+				Amount wholesalerPrice = new Amount (p.getPrice());
 				p.setPublicPrice(publicPrice);
 				p.setWholesalerPrice(wholesalerPrice);
 				
