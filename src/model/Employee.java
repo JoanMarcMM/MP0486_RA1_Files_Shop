@@ -1,7 +1,8 @@
 package model;
 
 import main.Logable;
-
+import java.io.Serializable;
+import javax.persistence.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,10 +16,11 @@ import dao.*;
 @Entity
 @Table(name="employee")
 public class Employee extends Person implements Logable{
+	private static final long serialVersionUID = 1L;
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int employeeId;
-	Dao dao = new  DaoImplMongoDB();
+	Dao dao = new  DaoImplObjectDB();
 	
     @Column(nullable = false)
 	private String password;
@@ -34,6 +36,11 @@ public class Employee extends Person implements Logable{
 	public Employee(int employeeId, String name, String password) {
 		super(name);
 		this.employeeId = employeeId;
+		this.password = password;
+	}
+	
+	public Employee( String name, String password) {
+		super(name);
 		this.password = password;
 	}
 	
@@ -53,6 +60,10 @@ public class Employee extends Person implements Logable{
 	 */
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
+	}
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	/**
